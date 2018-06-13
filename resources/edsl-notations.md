@@ -31,6 +31,7 @@ where `F1 : F2 : F3 : F4` is the (two's complement) byte-array representation of
     syntax TypedArg ::= #uint160 ( Int )
                       | #address ( Int )
                       | #uint256 ( Int )
+                      | #int256  ( Int )
  // ------------------------------------
 
     syntax TypedArgs ::= List{TypedArg, ","} [klabel(typedArgs)]
@@ -56,6 +57,7 @@ where `F1 : F2 : F3 : F4` is the (two's complement) byte-array representation of
     rule #typeName(#uint160( _ )) => "uint160"
     rule #typeName(#address( _ )) => "address"
     rule #typeName(#uint256( _ )) => "uint256"
+    rule #typeName(#int256( _ ))  => "int256"
 
     syntax WordStack ::= #encodeArgs ( TypedArgs ) [function]
  // ---------------------------------------------------------
@@ -67,6 +69,7 @@ where `F1 : F2 : F3 : F4` is the (two's complement) byte-array representation of
     rule #getData(#uint160( DATA )) => #asByteStackInWidth( DATA , 32 )
     rule #getData(#address( DATA )) => #asByteStackInWidth( DATA , 32 )
     rule #getData(#uint256( DATA )) => #asByteStackInWidth( DATA , 32 )
+    rule #getData(#int256( DATA ))  => #asByteStackInWidth( DATA , 32 )
 ```
 
 ### ABI Event Logs
@@ -137,6 +140,7 @@ where `1003892871367861763272476045097431689001461395759728643661426852242313133
     rule #getValue(#uint160(V)) => V
     rule #getValue(#address(V)) => V
     rule #getValue(#uint256(V)) => V
+    rule #getValue(#int256(V))  => V
 ```
 
 
